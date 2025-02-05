@@ -13,7 +13,7 @@ class NullOutput(Output):
 
 class ConsoleOutput(Output):
   def write(self, value):
-    print(value)
+    print(chr(value), end="")
 
 
 class FileOutput(Output):

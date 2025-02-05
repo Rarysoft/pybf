@@ -12,7 +12,7 @@ class Memory:
   def read(self, address):
     if address > self.max_address or address < self.min_address:
       raise STB("Address out of range")
-    return self.bytes[address]
+    return self.bytes[address] if address in self.bytes else 0
   
   def write(self, address, value):
     if address > self.max_address or address < self.min_address:
