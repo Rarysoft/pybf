@@ -71,8 +71,8 @@ bf.run("++-->><<[,.]")
 
 ## Exceptions
 
-The standard exception raised by `BF` is the `STB` ("shit the bed") exception. This will be thrown if invalid BF code
-is found by the interpreter. Although the provided `Memory` implementations will throw an `STB` on any attempt to
+The standard exception raised by `BF` is the `STB` ("shit the bed") exception. This will be raised if invalid BF code
+is found by the interpreter. Although the provided `Memory` implementations will raise an `STB` on any attempt to
 reference addresses or values outside the valid range, it should be impossible for valid BF code to result in an `STB`,
 as the interpreter implements a number of common brainfuck safeguards, such as wrapping the memory pointer and values
 on overflow and underflow.
