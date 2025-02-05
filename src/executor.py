@@ -1,79 +1,75 @@
-import os.path
-
-from stb import STB
-
-
-class NullInput:
-  def read(self):
-    return 0
+from input import Input
+from memory import Memory
+from output import Output
 
 
-class StringInput:
-  def __init__(self, data: str, skip_header = False):
-    self.data = data
-    self.header_read = skip_header
-    self.index = 0
+class Executor(object):
+  def perform_increment(self):
+    pass
   
+  def perform_decrement(self):
+    pass
   
-  def read(self):
-    if not self.header_read:
-      header_read = True
-      return len(self.data)
-    
-    if self.index >= len(self.data):
-      raise STB("Read past end of data")
-    
-    value = self.data[self.index]
-    self.index += 1
-    return value
-
-
-class FileInput:
-  def __init__(self, filename, skip_header = False):
-    try:
-      self.file = open(filename, "r")
-    except FileNotFoundError as e:
-      raise STB("File not found")
-    self.length = os.path.getsize(filename)
-    self.header_read = skip_header
+  def perform_increment_pointer(self):
+    pass
   
+  def perform_decrement_pointer(self):
+    pass
   
-  def read(self):
-    if not self.header_read:
-      self.header_read = True
-      return self.length
-    
-    try:
-      value = self.file.read(1)
-      if value < 0:
-        raise STB("Read past end of file")
-      return value
-    except:
-      raise STB("Unrecoverable file read error")
-
-
-class NullOutput:
-  def write(self, value):
+  def perform_start_loop(self):
+    pass
+  
+  def perform_end_loop(self):
+    pass
+  
+  def perform_input(self):
+    pass
+  
+  def perform_output(self):
     pass
 
 
-class ConsoleOutput:
-  def write(self, value):
-    print(value)
-
-
-class FileOutput:
-  def __init__(self, filename, append = False):
-    try:
-      self.file = open(filename, "a" if append else "w")
-    except FileNotFoundError as e:
-      raise STB(e)
+class BFExecutor(Executor):
+  def __init__(self, input: Input, output: Output, memory: Memory, pointer = 0):
+    self.input = input
+    self.output = output
+    self.memory = memory
+    self.pointer = pointer
   
+  def perform_increment(self):
+    current = self.memory.read(self.pointer)
+    if current == self.memory.max_value:
+      self.memory.write(self.pointer, self.memory.min_value)
+      return
+    self.memory.write(self.pointer, current + 1)
   
-  def write(self, value):
-    try:
-      self.file.write(value)
-    except FileNotFoundError:
-      raise STB("Unrecoverable file write error")
-
-
+  def perform_decrement(self):
+    current = self.memory.read(self.pointer)
+    if current == self.memory.min_value:
+      self.memory.write(self.pointer, self.memory.max_value)
+      return
+    self.memory.write(self.pointer, current - 1)
+  
+  def perform_increment_pointer(self):
+    if self.pointer == self.memory.max_address:
+      self.pointer = self.memory.min_address
+      return
+    self.pointer += 1
+  
+  def perform_decrement_pointer(self):
+    if self.pointer == self.memory.min_address:
+      self.pointer = self.memory.max_address
+      return
+    self.pointer -= 1
+  
+  def perform_start_loop(self):
+    return self.memory.read(self.pointer) == 0
+  
+  def perform_end_loop(self):
+    return self.memory.read(self.pointer) != 0
+  
+  def perform_input(self):
+    self.memory.write(self.pointer, self.input.read())
+  
+  def perform_output(self):
+    self.output.write(self.memory.read(self.pointer))
