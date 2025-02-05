@@ -2,7 +2,7 @@ from dialect import START_LOOP, END_LOOP
 from stb import STB
 
 
-class Looper(object):
+class Looper:
   def find_end_of_loop_delta(self, code: str, position: int) -> int:
     pass
   

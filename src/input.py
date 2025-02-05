@@ -3,7 +3,7 @@ import os.path
 from stb import STB
 
 
-class Input(object):
+class Input:
   def read(self) -> int:
     pass
 

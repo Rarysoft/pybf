@@ -1,7 +1,7 @@
 from stb import STB
 
 
-class Output(object):
+class Output:
   def write(self, value):
     pass
 

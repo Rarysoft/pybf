@@ -1,7 +1,7 @@
 from stb import STB
 
 
-class Memory(object):
+class Memory:
   def __init__(self, min_address, max_address, min_value, max_value):
     self.min_address = min_address
     self.max_address = max_address

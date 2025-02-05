@@ -3,7 +3,7 @@ from memory import Memory
 from output import Output
 
 
-class Executor(object):
+class Executor:
   def perform_increment(self):
     pass
   
