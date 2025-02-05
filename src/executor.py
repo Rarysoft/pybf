@@ -16,10 +16,10 @@ class Executor(object):
   def perform_decrement_pointer(self):
     pass
   
-  def perform_start_loop(self):
+  def perform_start_loop(self) -> bool:
     pass
   
-  def perform_end_loop(self):
+  def perform_end_loop(self) -> bool:
     pass
   
   def perform_input(self):

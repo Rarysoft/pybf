@@ -4,7 +4,7 @@ from stb import STB
 
 
 class Input(object):
-  def read(self):
+  def read(self) -> int:
     pass
 
 
