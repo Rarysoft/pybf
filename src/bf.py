@@ -1,4 +1,4 @@
-from dialect import INCREMENT, DECREMENT, INCREMENT_POINTER, DECREMENT_POINTER, START_LOOP, END_LOOP, INPUT, OUTPUT
+from dialect import current_dialect
 from executor import Executor
 from looper import Looper
 from stb import STB
@@ -22,22 +22,22 @@ class BF:
   
   def perform(self, code: str, position: int):
     token = code[position]
-    if token == INCREMENT:
+    if token == current_dialect.increment:
       self.executor.perform_increment()
-    elif token == DECREMENT:
+    elif token == current_dialect.decrement:
       self.executor.perform_decrement()
-    elif token == INCREMENT_POINTER:
+    elif token == current_dialect.increment_pointer:
       self.executor.perform_increment_pointer()
-    elif token == DECREMENT_POINTER:
+    elif token == current_dialect.decrement_pointer:
       self.executor.perform_decrement_pointer()
-    elif token == START_LOOP:
+    elif token == current_dialect.start_loop:
       if self.executor.perform_start_loop():
         return self.looper.find_end_of_loop_delta(code, position)
-    elif token == END_LOOP:
+    elif token == current_dialect.end_loop:
       if self.executor.perform_end_loop():
         return self.looper.find_start_of_loop_delta(code, position)
-    elif token == INPUT:
+    elif token == current_dialect.input:
       self.executor.perform_input()
-    elif token == OUTPUT:
+    elif token == current_dialect.output:
       self.executor.perform_output()
     return 1

@@ -1,7 +1,9 @@
+from abc import ABC, abstractmethod
 from stb import STB
 
 
-class Output:
+class Output(ABC):
+  @abstractmethod
   def write(self, value):
     pass
 

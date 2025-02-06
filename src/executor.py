@@ -1,30 +1,40 @@
+from abc import ABC, abstractmethod
+
 from input import Input
 from memory import Memory
 from output import Output
 
 
-class Executor:
+class Executor(ABC):
+  @abstractmethod
   def perform_increment(self):
     pass
   
+  @abstractmethod
   def perform_decrement(self):
     pass
   
+  @abstractmethod
   def perform_increment_pointer(self):
     pass
   
+  @abstractmethod
   def perform_decrement_pointer(self):
     pass
   
+  @abstractmethod
   def perform_start_loop(self) -> bool:
     pass
   
+  @abstractmethod
   def perform_end_loop(self) -> bool:
     pass
   
+  @abstractmethod
   def perform_input(self):
     pass
   
+  @abstractmethod
   def perform_output(self):
     pass
 

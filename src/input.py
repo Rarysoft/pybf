@@ -1,9 +1,11 @@
+from abc import ABC, abstractmethod
 import os.path
 
 from stb import STB
 
 
-class Input:
+class Input(ABC):
+  @abstractmethod
   def read(self) -> int:
     pass
 
