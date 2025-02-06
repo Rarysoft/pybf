@@ -55,7 +55,6 @@ from bf import BF
 from executor import BFExecutor
 from input import NullInput
 from output import ConsoleOutput
-from looper import BFLooper
 from memory import Unsigned16BitMemory
 
 inp = NullInput()
@@ -63,8 +62,7 @@ out = ConsoleOutput()
 mem = Unsigned16BitMemory()
 
 exe = BFExecutor(inp, out, mem)
-loop = BFLooper()
-bf = BF(exe, loop)
+bf = BF(exe)
 
 bf.run("++-->><<[,.]")
 ```
